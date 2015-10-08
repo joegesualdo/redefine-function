@@ -6,31 +6,51 @@
 $ npm install --save redefine-function 
 ```
 
-## API
-
-### Methods
-#### .redefineFunction(context, functionString, newFunction)
-
-### .redefineFunction
+## Usage
 ```javascript
 var redefineFunction= require("redefine-function")
 
-var Person = (function(){
-  function greeting(){console.log("Hello!")}
-  return {
-    greeting: greeting
+var Greetings = {
+  hello: function(){
+    return "Hi there."
   }
-})()
-
-function rudeGreeting(){
-  console.log("Sup, sucker!")
 }
 
-Person.greeting() // #=>  "Hello!"
+console.log(Greetings.hello()) // Hi there
 
-redefineFunction(global, "Person.greeting", rudeGreeting)
+redefineFunction(this, "Greetings.hello", function(){
+  return  "Don't worry about it"
+})
 
-Person.greeting() // #=>  "Sup, sucker!"
+console.log(Greetings.hello()) // Don't worry about it
+```
+
+## API
+
+### `redefineFunction(context, functionName, newFunction)`
+
+| Name | Type | Description |
+|------|------|-------------|
+| Context | `Object` | The context of the object or function you want to redefine
+| functionName | `String` | A string representation of the function you want to redefine 
+| newFunction | `Function` | The function you want to override with 
+
+```javascript
+var redefineFunction= require("redefine-function")
+
+var Greetings = {
+  hello: function(){
+    return "Hi there."
+  }
+}
+
+console.log(Greetings.hello()) // Hi there
+
+redefineFunction(this, "Greetings.hello", function(){
+  return  "Don't worry about it"
+})
+
+console.log(Greetings.hello()) // Don't worry about it
 ```
 
 ##### Also works with prototype functions:
