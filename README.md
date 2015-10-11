@@ -72,3 +72,5 @@ redefineFunction(global, "String.prototype.yell", reallyYell)
 "Hello".yell() // #=>  "Hello!!!!!!!!"
 ```
 
+## License
+MIT © Joe Gesualdo
